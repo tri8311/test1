@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư viện Ảnh Đơn giản</title>
+
+    <style>
+        /* CSS (styles.css) */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        #image {
+            width: 600px;
+            height: 400px;
+            margin: 0 auto 30px;
+            line-height: 400px; /* Căn giữa dọc văn bản */
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            border: 5px solid #0056b3;
+            background-color: #e0e0e0;
+            background-image: url(''); /* Mặc định không có ảnh */
+            transition: background-image 0.5s, color 0.5s;
+            background-size: cover; /* Đảm bảo hình nền phủ kín */
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .preview-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .preview {
+            width: 150px;
+            height: 100px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            transition: border-color 0.3s, transform 0.2s;
+            border-radius: 4px;
+        }
+
+        .preview:hover {
+            border-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Thư Viện Ảnh Demo</h1>
+    
+    <div id="image">
+        Di chuột qua một hình ảnh bên dưới để hiển thị ở đây.
+    </div>
+
+    <div class="preview-container">
+        <img class="preview" alt="Đôi mắt của loài báo" src="https://picsum.photos/id/1025/300/200" onmouseover="upDate(this)" onmouseout="unDo()">
+        <img class="preview" alt="Một chiếc xe cổ điển màu đỏ" src="https://picsum.photos/id/237/300/200" onmouseover="upDate(this)" onmouseout="unDo()">
+        <img class="preview" alt="Một cốc cà phê với hạt cà phê" src="https://picsum.photos/id/1080/300/200" onmouseover="upDate(this)" onmouseout="unDo()">
+    </div>
+
+    <script>
+        /* JavaScript (script.js) */
+
+        /* Hàm upDate: Thay đổi hình nền và văn bản của div #image */
+        function upDate(previewPic) {
+            // Lấy phần tử xem trước chính
+            var bigImage = document.getElementById('image');
+
+            // 1. Gỡ lỗi: Kiểm tra sự kiện kích hoạt và in thông tin ảnh
+            console.log("Sự kiện 'onmouseover' đã kích hoạt.");
+            console.log("Alt của ảnh: " + previewPic.alt);
+            console.log("Source (src) của ảnh: " + previewPic.src);
+
+            // 2. Thay đổi văn bản của phần tử #image bằng thuộc tính alt
+            bigImage.innerHTML = previewPic.alt;
+
+            // 3. Thay đổi hình nền của phần tử #image
+            bigImage.style.backgroundImage = "url('" + previewPic.src + "')";
+            bigImage.style.color = "transparent"; // Ẩn văn bản để chỉ thấy hình ảnh
+
+            // 4. Kiểm tra công việc (in ra giá trị hình nền)
+            console.log("Hình nền đã thay đổi thành: " + bigImage.style.backgroundImage);
+        }
+
+        /* Hàm unDo: Khôi phục hình nền và văn bản về trạng thái ban đầu */
+        function unDo() {
+            console.log("Sự kiện 'onmouseout' đã kích hoạt.");
+
+            // Lấy phần tử xem trước chính
+            var bigImage = document.getElementById('image');
+
+            // 1. Cập nhật url hình nền trở lại giá trị ban đầu: url("") (không có hình)
+            bigImage.style.backgroundImage = "url('')";
+
+            // 2. Cập nhật văn bản trở lại văn bản gốc
+            bigImage.innerHTML = "Di chuột qua một hình ảnh bên dưới để hiển thị ở đây.";
+            bigImage.style.color = "#333"; // Hiển thị lại văn bản
+        }
+    </script>
+</body>
+</html>
